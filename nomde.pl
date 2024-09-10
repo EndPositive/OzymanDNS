@@ -7,9 +7,9 @@ use Net::DNS;
 use Net::DNS::Nameserver;
 #use LWP::Simple;
 use LWP::UserAgent;
-use Time::HiRes qw ( usleep gettimeofday );
+use Time::HiRes qw(usleep gettimeofday);
 use MIME::Base64;
-use MIME::Base32 qw ( RFC );
+use MIME::Base32;
 use IO::Socket;
 use Class::Struct;
 use threads;
@@ -29,7 +29,7 @@ GetOptions(
 	"ip=s"   =>  \$opts{ip},
 	"filename=s"  =>  \$opts{file},
     "ptrname"     =>  \$opts{ptrname},
-    "Localforward"=>  \$opts{forward}
+    "Localforward=s"=>  \$opts{forward}
 );
 if($ARGV[0]) {
    $opts{localname} = $ARGV[0];
@@ -149,7 +149,7 @@ sub reply_handler {
     		goto end;
     	}
 	}
-    
+
 
 	if ($qtype eq "CNAME") { $rcode = "NOERROR"; goto end;};
 	if ($qtype eq "PTR") {
@@ -350,9 +350,10 @@ my %socklist : shared;
 %sockdata;
 
 my $ns = Net::DNS::Nameserver->new(
+    LocalAddr    => "0.0.0.0",
     LocalPort    => 53,
     ReplyHandler => \&reply_handler,
-    Verbose      => 2,
+    Verbose      => 0,
 ) || die "couldn't create nameserver object\n";
 
 $ns->main_loop;

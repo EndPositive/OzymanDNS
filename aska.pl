@@ -4,7 +4,7 @@ $VERSION=0.1;
 
 
 use Net::DNS;
-use MIME::Base32 qw ( RFC );
+use MIME::Base32;
 use MIME::Base64;
 use Time::HiRes qw (usleep gettimeofday tv_interval);
 use Getopt::Long;

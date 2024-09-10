@@ -5,7 +5,7 @@ $VERSION="0.1";
 use Fcntl;
 use Net::DNS;
 use MIME::Base64;
-use MIME::Base32 qw ( RFC );
+use MIME::Base32;
 use Time::HiRes qw (usleep gettimeofday );
 use Getopt::Long;
 use threads;
@@ -13,7 +13,7 @@ use Thread::Queue;
 
 
 # hardcoded destinations
-my $verbose=0;
+my $verbose=1;
 my $resolver, $upresolver, $downresolver;
 undef $resolver, $upresolver, $downresolver;
 my $min_sleep = $sleep = 100;
