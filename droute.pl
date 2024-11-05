@@ -236,6 +236,7 @@ while(1)
 	     $temp_payload = lc MIME::Base32::encode($data);
 	     $temp_payload =~s/(.{60})/$1\./g;
 	     $temp_payload =~s/\.\././g;
+       $temp_payload =~s/\.$//; # remove trailing dot (added above in case temp_payload is a multiple of 60)
 	     $payload = "$temp_payload.$nonce-$sum_up.id-$id.up.$extension";
 	     $upstate = "SEND_DATA";
 	  }
